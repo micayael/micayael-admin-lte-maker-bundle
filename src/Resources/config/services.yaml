@@ -1,0 +1,47 @@
+services:
+
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # CRUD de parámetros
+
+#    Micayael\AdminLteMakerBundle\:
+#        resource: '../../*'
+#        exclude: '../../{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    Micayael\AdminLteMakerBundle\Repository\ParametroRepository: ~
+
+    Micayael\AdminLteMakerBundle\Twig\ViewHelper\Action\ParametroActionsViewHelper: ~
+
+    Micayael\AdminLteMakerBundle\Twig\ParametroExtension: ~
+
+    Micayael\AdminLteMakerBundle\Service\ParametroService: ~
+
+    Micayael\AdminLteMakerBundle\Form\Type\ParametrosType: ~
+
+    Micayael\AdminLteMakerBundle\Controller\Admin\Parametro\:
+        resource: '../../Controller/Admin/Parametro'
+        tags: ['controller.service_arguments']
+
+    # MakeCrud
+
+    Micayael\AdminLteMakerBundle\Maker\MakeCrud:
+        arguments: ['@maker.doctrine_helper', '@maker.renderer.form_type_renderer', '%bundle_config%']
+        calls:
+            - [configureCommand, ['@security.command.user_password_encoder', '@?']]
+            - [interact, ['@?', '@?', '@security.command.user_password_encoder']]
+        tags:
+            - { name: maker.command }
+
+    Micayael\AdminLteMakerBundle\Twig\MicayaelAdminLteMakerExtension:
+        arguments: ['@router', '@translator', '@security.authorization_checker']
+        tags:
+            - { name: twig.extension }
+
+    Micayael\AdminLteMakerBundle\EventSubscriber\RedirectExceptionSubscriber:
+        arguments: ['@router', '@session.flash_bag']
+        tags:
+            - { name: kernel.event_subscriber }
+
+

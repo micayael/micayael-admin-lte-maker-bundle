@@ -1,0 +1,69 @@
+{% extends 'admin.html.twig' %}
+
+{% block page_title %}
+
+    {{ 'crud.title.show'|trans({'%entity_class_name%': 'Parametro'}, 'MicayaelAdminLteMakerBundle') }}
+
+{% endblock %}
+
+{% block breadcrumb %}
+
+    {% embed '@MicayaelAdminLteMaker/Widgets/breadcrumb.html.twig' %}
+
+        {% block content %}
+            <li><a href="{{ path('parametro_index') }}">Parametros</a></li>
+            <li class="active">{{ parametro }}: {{ 'crud.action.show'|trans({}, 'MicayaelAdminLteMakerBundle') }}</li>
+        {% endblock %}
+
+    {% endembed %}
+
+{% endblock %}
+
+{% block page_content %}
+
+    <div class="row">
+        <div class="col-md-12">
+
+            {% embed '@MicayaelAdminLteMaker/Widgets/context_menu.html.twig' %}
+
+                {% block brand %}
+                    {{ parametro }}
+                {% endblock %}
+
+                {% block actions %}
+                    <li>
+                        {{ create_link('edit', 'parametro_edit', {'id': parametro.id}, 'ROLE_PARAMETRO_UPDATE') }}
+                    </li>
+                    <li>
+                        {{ create_link('index', 'parametro_index', {}, 'ROLE_PARAMETRO_READ') }}
+                    </li>
+                {% endblock %}
+
+            {% endembed %}
+
+        </div>
+    </div>
+
+    <div class="row crud crud-show">
+        <div class="col-md-12">
+
+            {% embed '@AdminLTE/Widgets/box-widget.html.twig' %}
+
+                {% block box_body %}
+
+                    {{ include('@MicayaelAdminLteMakerBundle/admin/parametro/_show_data.html.twig') }}
+
+                {% endblock %}
+
+                {% block box_footer %}
+
+                    {{ parametro_actions(parametro, true) }}
+
+                {% endblock %}
+
+            {% endembed %}
+
+        </div>
+    </div>
+
+{% endblock %}

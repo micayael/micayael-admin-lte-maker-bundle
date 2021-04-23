@@ -1,0 +1,9 @@
+{% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_PARAMETRO_DELETE') %}
+
+    <form method="post" action="{{ path('parametro_delete', {'id': parametro.id}) }}">
+        <input type="hidden" name="_method" value="DELETE">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ parametro.id) }}">
+        <button class="btn btn-danger"><i class="fas fa-trash-alt"></i> {{ 'crud.action.delete_confirm'|trans({}, 'MicayaelAdminLteMakerBundle') }}</button>
+    </form>
+
+{% endif %}

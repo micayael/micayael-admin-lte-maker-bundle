@@ -1,0 +1,86 @@
+{% extends 'admin.html.twig' %}
+
+{% block page_title %}
+
+    {{ 'crud.title.edit'|trans({'%entity_class_name%': 'Parametro'}, 'MicayaelAdminLteMakerBundle') }}
+
+{% endblock %}
+
+{% block breadcrumb %}
+
+    {% embed '@MicayaelAdminLteMaker/Widgets/breadcrumb.html.twig' %}
+
+        {% block content %}
+            <li><a href="{{ path('parametro_index') }}">Parametros</a></li>
+            <li class="active">{{ parametro }}: {{ 'crud.action.edit'|trans({}, 'MicayaelAdminLteMakerBundle') }}</li>
+        {% endblock %}
+
+    {% endembed %}
+
+{% endblock %}
+
+{% block page_content %}
+
+    <div class="row">
+        <div class="col-md-12">
+
+            {% embed '@MicayaelAdminLteMaker/Widgets/context_menu.html.twig' %}
+
+                {% block brand %}
+                    {{ parametro }}
+                {% endblock %}
+
+                {% block actions %}
+                    <li>
+                        {{ create_link('new', 'parametro_new', {}, 'ROLE_PARAMETRO_CREATE') }}
+                    </li>
+                    <li>
+                        {{ create_link('show', 'parametro_show', {'id': parametro.id}, 'ROLE_PARAMETRO_READ') }}
+                    </li>
+                    <li>
+                        {{ create_link('index', 'parametro_index', {}, 'ROLE_PARAMETRO_READ') }}
+                    </li>
+                {% endblock %}
+
+            {% endembed %}
+
+        </div>
+    </div>
+
+    <div class="row crud crud-edit crud-form">
+        <div class="col-md-12">
+
+            {{ form_start(form) }}
+
+                {% embed '@AdminLTE/Widgets/box-widget.html.twig' %}
+
+                    {% block box_body %}
+                        {{ form_row(form.dominio) }}
+                        {{ form_row(form.tipo) }}
+                        {{ form_row(form.codigo) }}
+                        {{ form_row(form.valor) }}
+                        {{ form_row(form.orden) }}
+
+                    {% endblock %}
+
+                    {% block box_footer %}
+
+                        <div class="mandatory_fields_message">{{ 'crud.msg.mandatory_fields'|trans({}, 'MicayaelAdminLteMakerBundle') }}</div>
+
+                        {{ form_widget(form.saveAndEdit) }}
+                        {{ form_widget(form.saveAndList) }}
+
+                        <span class="pull-right">
+                            {{ create_button('delete', 'parametro_delete', {'id': parametro.id}, 'ROLE_PARAMETRO_DELETE') }}
+                        </span>
+
+                    {% endblock %}
+
+                {% endembed %}
+
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+
+{% endblock %}

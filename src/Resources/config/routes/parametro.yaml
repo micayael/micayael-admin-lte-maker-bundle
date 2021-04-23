@@ -1,0 +1,24 @@
+parametro_index:
+    path: /parametro
+    controller: Micayael\AdminLteMakerBundle\Controller\Admin\Parametro\IndexController
+    methods: GET
+
+parametro_new:
+    path: /parametro/new
+    controller: Micayael\AdminLteMakerBundle\Controller\Admin\Parametro\NewController
+    methods: GET|POST
+
+parametro_show:
+    path: /parametro/{id}
+    controller: Micayael\AdminLteMakerBundle\Controller\Admin\Parametro\ShowController
+    methods: GET
+
+parametro_edit:
+    path: /parametro/{id}/edit
+    controller: Micayael\AdminLteMakerBundle\Controller\Admin\Parametro\EditController
+    methods: GET|POST
+
+parametro_delete:
+    path: /parametro/{id}/delete
+    controller: Micayael\AdminLteMakerBundle\Controller\Admin\Parametro\DeleteController
+    methods: GET|DELETE

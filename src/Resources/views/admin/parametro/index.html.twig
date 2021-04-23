@@ -1,0 +1,98 @@
+{% extends 'admin.html.twig' %}
+
+{% block page_title %}
+
+    {{ 'crud.title.index'|trans({'%entity_class_name_plural%': 'Parametros'}, 'MicayaelAdminLteMakerBundle') }}
+
+{% endblock %}
+
+{% block breadcrumb %}
+
+    {% embed '@MicayaelAdminLteMaker/Widgets/breadcrumb.html.twig' %}
+
+        {% block content %}
+        <li class="active">Parametros</li>
+        {% endblock %}
+
+    {% endembed %}
+
+{% endblock %}
+
+{% block page_content %}
+
+    <div class="row">
+        <div class="col-md-12">
+
+            {% embed '@MicayaelAdminLteMaker/Widgets/context_menu.html.twig' %}
+
+                {% block actions %}
+                    <li>
+                        {{ create_link('new', 'parametro_new', {}, 'ROLE_PARAMETRO_CREATE') }}
+                    </li>
+                {% endblock %}
+
+            {% endembed %}
+
+        </div>
+    </div>
+
+    <div class="row crud crud-index">
+        <div class="col-md-12">
+
+            {% embed '@AdminLTE/Widgets/box-widget.html.twig' %}
+
+                {% block box_body %}
+
+                    <div class="table-responsive">
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>{{ knp_pagination_sortable(pagination, 'Dominio', 'p.dominio') }}</th>
+                                    <th>{{ knp_pagination_sortable(pagination, 'Tipo', 'p.tipo') }}</th>
+                                    <th>{{ knp_pagination_sortable(pagination, 'Codigo', 'p.codigo') }}</th>
+                                    <th>{{ knp_pagination_sortable(pagination, 'Valor', 'p.valor') }}</th>
+                                    <th>{{ knp_pagination_sortable(pagination, 'Orden', 'p.orden') }}</th>
+                                    <th class="text-center">{{ 'crud.list.actions'|trans({}, 'MicayaelAdminLteMakerBundle') }}</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <td colspan="6">
+
+                                    {% include '@MicayaelAdminLteMaker/Partials/paginator.html.twig' %}
+
+                                </td>
+                            </tr>
+                            </tfoot>
+                            <tbody>
+
+                            {% for parametro in pagination %}
+                                <tr>
+                                    <td>{{ parametro.dominio }}</td>
+                                    <td>{{ parametro.tipo }}</td>
+                                    <td>{{ parametro.codigo }}</td>
+                                    <td>{{ parametro.valor|nl2br }}</td>
+                                    <td>{{ parametro.orden }}</td>
+                                    <td class="text-center">
+                                        {{ parametro_actions(parametro) }}
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="6">{{ 'crud.list.no_records_found'|trans({}, 'MicayaelAdminLteMakerBundle') }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                {% endblock %}
+
+            {% endembed %}
+
+        </div>
+    </div>
+
+{% endblock %}

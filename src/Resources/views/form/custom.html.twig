@@ -1,0 +1,5 @@
+{%- block submit_icon_widget -%}
+    <button class="btn btn-{% if primary %}primary{% else %}default{% endif %}" type="submit" {{ block('button_attributes') }}>
+        {% for icon in icons %}<i class="fas {{ icon }}"></i> {% endfor %}{{ translation_domain is same as(false) ? label : label|trans(label_translation_parameters, translation_domain) }}
+    </button>
+{%- endblock submit_icon_widget -%}

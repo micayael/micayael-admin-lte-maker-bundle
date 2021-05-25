@@ -26,6 +26,10 @@ class ParametroExtension extends AbstractExtension
     {
         $parametro = $this->parametroService->getParametro($dominio, $codigo);
 
+        if(!$parametro){
+            return $dominio . ' (' .$codigo. ')';
+        }
+
         return $parametro;
     }
 }
